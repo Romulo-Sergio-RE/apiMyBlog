@@ -12,5 +12,12 @@ namespace api.Controller
         {
             _UserRepository = userRepository;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _UserRepository.GetAllUsersAsync();
+            return Ok(users);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using api.Context;
 using api.Interface;
 using api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
 {
@@ -12,9 +13,10 @@ namespace api.Repository
         {
             _context = context;
         }
-        public Task<List<User>> GetAllUsersAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.ToListAsync();
+            return user;
         }
 
     }
