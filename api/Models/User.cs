@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace api.Models
 {
     public class User
@@ -12,8 +7,8 @@ namespace api.Models
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Genre { get; set; } = string.Empty;
-        public bool IsAdmin { get; set; } = string.Empty;
+        public bool IsAdmin { get; set; }
         public List<Article> Articles { get; set; } = new List<Article>();
-        public List<Comment> Comments { get; sert;} = new List<Comment>();
+        public List<Comment> Comments { get; set;} = new List<Comment>();
     }
 }
