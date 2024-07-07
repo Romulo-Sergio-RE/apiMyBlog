@@ -34,10 +34,6 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Genre")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("TimeRead")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -46,15 +42,12 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("UserAdiminId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserIdAdmin")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserAdiminId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Articles");
                 });
@@ -124,11 +117,9 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Article", b =>
                 {
-                    b.HasOne("api.Models.User", "UserAdimin")
+                    b.HasOne("api.Models.User", null)
                         .WithMany("Articles")
-                        .HasForeignKey("UserAdiminId");
-
-                    b.Navigation("UserAdimin");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("api.Models.Comment", b =>
@@ -137,11 +128,9 @@ namespace api.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("ArticleId");
 
-                    b.HasOne("api.Models.User", "User")
+                    b.HasOne("api.Models.User", null)
                         .WithMany("Comments")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("api.Models.Article", b =>

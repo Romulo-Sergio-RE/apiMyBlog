@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.User
 {
-    public class UserAllDto
+    public class UpdateUserRequestDto
     {
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;

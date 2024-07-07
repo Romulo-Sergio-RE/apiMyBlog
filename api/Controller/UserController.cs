@@ -32,20 +32,23 @@ namespace api.Controller
             return Ok(userId.ToUserDto());
         }
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserAllDto userDto)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto userDto)
         {
             var userCreate = userDto.ToUserAllDto();
             await _UserRepository.CreateUserAsync(userCreate);        
 
-            return CreatedAtAction(nameof(GetByIdUser),new {id = userCreate.Id} ,userCreate.ToUserDto());
+            return CreatedAtAction(nameof(GetByIdUser),new {id = userCreate.Id},userCreate.ToUserDto());
         }
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] int id , [FromBody] UserAllDto userDto)
+        public async Task<IActionResult> UpdateUser([FromRoute] int id , [FromBody] UpdateUserRequestDto userDto)
         {
-            await _UserRepository.UpdateUserAsync(id, userDto);        
-
-            return Ok(userDto.ToUserAllDto());
+            var user = await _UserRepository.UpdateUserAsync(id, userDto);        
+            if(user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user.ToUserDto());
         }
 
         [HttpDelete]

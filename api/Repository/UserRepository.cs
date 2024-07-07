@@ -1,6 +1,7 @@
 using api.Context;
 using api.Dtos.User;
 using api.Interface;
+using api.Mappers;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,13 +37,12 @@ namespace api.Repository
 
         public async Task<List<User>> GetAllUsersAsync()
         {
-            var user = await _context.Users.ToListAsync();
-            return user;
+          return await _context.Users.Include(a => a.Articles).ToListAsync();
         }
 
         public async Task<User?> GetUserByIdAsync(int id)
         {
-            var userId = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var userId = await _context.Users.Include(a => a.Articles).FirstOrDefaultAsync(u => u.Id == id);
             if (userId == null)
             {
                 return null;
@@ -50,7 +50,7 @@ namespace api.Repository
             return userId;
         }
 
-        public async Task<User?> UpdateUserAsync(int id, UserAllDto updateUser)
+        public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser)
         {
             var userModel = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             if(userModel == null)
@@ -61,8 +61,20 @@ namespace api.Repository
             userModel.Email = updateUser.Email;
             userModel.Password = updateUser.Password;
             userModel.Genre = updateUser.Genre;
+            userModel.IsAdmin = updateUser.IsAdmin;
             await _context.SaveChangesAsync();
             return userModel;
+        }
+        public async Task<bool> UserIsAdmin(int id)
+        {
+            var userAdmin = await GetUserByIdAsync(id);
+
+            if(await _context.Users.AnyAsync(u => u.Id == id) && userAdmin.IsAdmin == true) 
+            {
+                return true;
+            }
+            return false;
+
         }
     }
 }

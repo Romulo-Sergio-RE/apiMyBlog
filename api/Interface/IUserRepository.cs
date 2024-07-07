@@ -8,7 +8,8 @@ namespace api.Interface
         Task<List<User>> GetAllUsersAsync();
         Task<User?> GetUserByIdAsync(int id);
         Task<User?> CreateUserAsync(User user);
-        Task<User?> UpdateUserAsync(int id, UserAllDto updateUser);
+        Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser);
         Task<User?> DeleteUserAsync(int id);
+        Task<bool> UserIsAdmin(int id);
     }
 }

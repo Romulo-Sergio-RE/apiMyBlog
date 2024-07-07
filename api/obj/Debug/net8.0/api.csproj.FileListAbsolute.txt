@@ -104,3 +104,7 @@ C:\Users\romulo\Documents\GitHub\apiMyBlog\apiMyBlog\api\bin\Debug\net8.0\ru\Mic
 C:\Users\romulo\Documents\GitHub\apiMyBlog\apiMyBlog\api\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\romulo\Documents\GitHub\apiMyBlog\apiMyBlog\api\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\romulo\Documents\GitHub\apiMyBlog\apiMyBlog\api\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\romulo\Documents\GitHub\apiMyBlog\apiMyBlog\api\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\romulo\Documents\GitHub\apiMyBlog\apiMyBlog\api\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\romulo\Documents\GitHub\apiMyBlog\apiMyBlog\api\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\romulo\Documents\GitHub\apiMyBlog\apiMyBlog\api\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

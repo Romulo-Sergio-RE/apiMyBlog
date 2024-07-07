@@ -14,9 +14,11 @@ namespace api.Mappers
                 Email = user.Email,
                 Password = user.Password,
                 Genre = user.Genre,
+                IsAdmin = user.IsAdmin,
+                Articles = user.Articles.Select(a => a.ToArticleDto()).ToList(),
             };
         }
-        public static User ToUserAllDto(this UserAllDto user)
+        public static User ToUserAllDto(this CreateUserRequestDto user)
         {
             return new User
             {
@@ -24,6 +26,7 @@ namespace api.Mappers
                 Email = user.Email,
                 Password = user.Password,
                 Genre = user.Genre,
+                IsAdmin = user.IsAdmin,
             };
         }
     }
