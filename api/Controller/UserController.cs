@@ -1,3 +1,4 @@
+using api.Dtos.User;
 using api.Interface;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,6 @@ namespace api.Controller
             var users = await _UserRepository.GetAllUsersAsync();
             return Ok(users);
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdUser([FromRoute] int id)
         {
@@ -32,17 +32,33 @@ namespace api.Controller
             return Ok(userId.ToUserDto());
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] UserAllMappers user)
+        public async Task<IActionResult> CreateUser([FromBody] UserAllDto userDto)
         {
-            var userCreate = user.ToUserAllDto();
+            var userCreate = userDto.ToUserAllDto();
             await _UserRepository.CreateUserAsync(userCreate);        
 
             return CreatedAtAction(nameof(GetByIdUser),new {id = userCreate.Id} ,userCreate.ToUserDto());
         }
-        [HttpDelete]
-        public Task<IActionResult> Create()
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateUser([FromRoute] int id , [FromBody] UserAllDto userDto)
         {
-            
+            await _UserRepository.UpdateUserAsync(id, userDto);        
+
+            return Ok(userDto.ToUserAllDto());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] int id)
+        {
+            var deleteUser = await _UserRepository.DeleteUserAsync(id);
+
+            if(deleteUser == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }
