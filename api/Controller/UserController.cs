@@ -40,5 +40,9 @@ namespace api.Controller
             return CreatedAtAction(nameof(GetByIdUser),new {id = userCreate.Id} ,userCreate.ToUserDto());
         }
         [HttpDelete]
+        public Task<IActionResult> Create()
+        {
+            
+        }
     }
 }
