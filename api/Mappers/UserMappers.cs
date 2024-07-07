@@ -16,7 +16,7 @@ namespace api.Mappers
                 Genre = user.Genre,
             };
         }
-        public static User ToUserAllDto(this UserAllMappers user)
+        public static User ToUserAllDto(this UserAllDto user)
         {
             return new User
             {
