@@ -1,92 +1,89 @@
 using api.Context;
 using api.Dtos.User;
 using api.Interface;
-using api.Mappers;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Repository
+namespace api.Repository;
+
+public class UserRepository : IUserRepository
 {
-    public class UserRepository : IUserRepository
+    private readonly ApplicationDbContext _context;
+    public UserRepository(ApplicationDbContext context)
     {
-        //private readonly IUserRepository _userRepository;
-        private readonly ApplicationDbContext _context;
-        public UserRepository(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        _context = context;
+    }
 
-        public async Task<User?> CreateUserAsync(User user)
-        {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-            return user;
-        }
+    public async Task<User?> CreateUserAsync(User user)
+    {
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
+        return user;
+    }
 
-        public async Task<User?> DeleteUserAsync(int id)
+    public async Task<User?> DeleteUserAsync(int id)
+    {
+        var userId = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        if (userId == null)
         {
-            var userId = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if (userId == null)
-            {
-                return null;
-            }
-            _context.Users.Remove(userId);
-            await _context.SaveChangesAsync();
-            return userId;
+            return null;
         }
+        _context.Users.Remove(userId);
+        await _context.SaveChangesAsync();
+        return userId;
+    }
 
-        public async Task<List<User>> GetAllUsersAsync()
-        {
-          return await _context.Users.Include(a => a.Articles)
+    public async Task<List<User>> GetAllUsersAsync()
+    {
+        return await _context.Users.Include(a => a.Articles)
+          .Include(c => c.Comments)
+          .ToListAsync();
+    }
+
+    public async Task<User?> GetUserByIdAsync(int id)
+    {
+        var userId = await _context.Users.Include(a => a.Articles)
             .Include(c => c.Comments)
-            .ToListAsync();
+            .FirstOrDefaultAsync(u => u.Id == id);
+        if (userId == null)
+        {
+            return null;
         }
+        return userId;
+    }
 
-        public async Task<User?> GetUserByIdAsync(int id)
+    public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser)
+    {
+        var userModel = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        if (userModel == null)
         {
-            var userId = await _context.Users.Include(a => a.Articles)
-                .Include(c => c.Comments)
-                .FirstOrDefaultAsync(u => u.Id == id);
-            if (userId == null)
-            {
-                return null;
-            }
-            return userId;
+            return null;
         }
+        userModel.Name = updateUser.Name;
+        userModel.Email = updateUser.Email;
+        userModel.Password = updateUser.Password;
+        userModel.Genre = updateUser.Genre;
+        userModel.IsAdmin = updateUser.IsAdmin;
+        await _context.SaveChangesAsync();
+        return userModel;
+    }
+    public async Task<bool> UserIsAdmin(int id)
+    {
+        var userAdmin = await GetUserByIdAsync(id);
 
-        public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser)
+        if (await _context.Users.AnyAsync(u => u.Id == id) && userAdmin.IsAdmin == true)
         {
-            var userModel = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if(userModel == null)
-            {
-                return null;
-            }
-            userModel.Name = updateUser.Name;
-            userModel.Email = updateUser.Email;
-            userModel.Password = updateUser.Password;
-            userModel.Genre = updateUser.Genre;
-            userModel.IsAdmin = updateUser.IsAdmin;
-            await _context.SaveChangesAsync();
-            return userModel;
+            return true;
         }
-        public async Task<bool> UserIsAdmin(int id)
+        return false;
+    }
+    public async Task<bool> UserExist(int id)
+    {
+        var userAdmin = await GetUserByIdAsync(id);
+        if (await _context.Users.AnyAsync(u => u.Id == id))
         {
-            var userAdmin = await GetUserByIdAsync(id);
-
-            if(await _context.Users.AnyAsync(u => u.Id == id) && userAdmin.IsAdmin == true) 
-            {
-                return true;
-            }
-            return false;
+            return true;
         }
-        public async Task<bool> UserExist(int id)
-        {
-            var userAdmin = await GetUserByIdAsync(id);
-            if(await _context.Users.AnyAsync(u => u.Id == id)) 
-            {
-                return true;
-            }
-            return false;
-        }
+        return false;
     }
 }

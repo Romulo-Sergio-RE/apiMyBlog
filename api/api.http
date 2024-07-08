@@ -1,6 +1,76 @@
 @api_HostAddress = http://localhost:5221
-
-GET {{api_HostAddress}}/weatherforecast/
-Accept: application/json
+// User
+###
+GET  {{api_HostAddress}}/api/user
+###
+GET  {{api_HostAddress}}/api/user/2
+###
+POST {{api_HostAddress}}/api/user/
+Content-Type: application/json
+{
+    "name": "Minecraft",
+    "email":"kids and family",
+    "password": 19.99,
+    "genre":"2011-11-18",
+    "isAdmin": true
+}
+###
+PUT {{api_HostAddress}}/api/user/2
+Content-Type: application/json
+{
+    "name": "Minecraft",
+    "email":"kids and family",
+    "password": 19.99,
+    "genre":"2011-11-18",
+    "isAdmin": true
+}
+###
+DELETE {{api_HostAddress}}/api/user/2
 
 ###
+//Article
+GET  {{api_HostAddress}}/api/article
+###
+GET  {{api_HostAddress}}/api/article/2
+###
+POST {{api_HostAddress}}/api/article/2
+Content-Type: application/json
+{
+    "title": "Minecraft",
+    "content":"kids and family",
+    "password": 19.99,
+    "timeRead":"2011-11-18",
+}
+###
+PUT {{api_HostAddress}}/api/article/2
+Content-Type: application/json
+{
+    "title": "Minecraft",
+    "content":"kids and family",
+    "password": 19.99,
+    "timeRead":"2011-11-18",
+}
+###
+DELETE {{api_HostAddress}}/api/article/2
+
+//Comment
+###
+GET  {{api_HostAddress}}/api/comment
+###
+GET  {{api_HostAddress}}/api/comment/2
+###
+//api/comment/userId/ArticleId
+POST {{api_HostAddress}}/api/comment/2/2
+Content-Type: application/json
+{
+    "content":"kids and family",
+}
+###
+//api/comment/userId/ArticleId/CommentId
+PUT {{api_HostAddress}}/api/comment/2/3/5
+Content-Type: application/json
+{
+    "content":"kids and family",
+}
+###
+DELETE {{api_HostAddress}}/api/comment/2
