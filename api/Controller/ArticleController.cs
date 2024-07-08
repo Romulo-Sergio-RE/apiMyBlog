@@ -1,4 +1,3 @@
-using api.Context;
 using api.Dtos.Article;
 using api.Interface;
 using api.Mappers;
@@ -36,17 +35,36 @@ namespace api.Controller
         [HttpPost("{userId}")]
         public async Task<IActionResult> CreateArticle([FromRoute] int userId, CreateArticleRequestDto createArticleDto)
         {
-            
             if(await _userRepository.UserIsAdmin(userId) == false)
             {
                return BadRequest("usuario nao existe");
-            }
-
-            
+            }  
             var articleModel = createArticleDto.ToArticleAllDto(userId);
             await _articleRepository.CreateArticlesAsync(articleModel);
 
             return CreatedAtAction(nameof(GetByIdArticle),new {id = articleModel}, articleModel.ToArticleDto());
+        }
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromBody] UpdateArticleRequestDto  updateArticle)
+        {
+            var article = await _articleRepository.UpdateArticlesAsync(id, updateArticle);
+            if(article == null)
+            {
+                return NotFound();
+            }
+            return Ok(article.ToArticleDto());
+        }
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteArticle([FromRoute] int id)  
+        {
+            var deleteArticle = await _articleRepository.DeleteArticlesAsync(id);
+            if(deleteArticle == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }

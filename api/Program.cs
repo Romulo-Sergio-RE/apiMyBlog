@@ -17,10 +17,12 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options => {
 // add o repository
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 );
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

@@ -37,12 +37,16 @@ namespace api.Repository
 
         public async Task<List<User>> GetAllUsersAsync()
         {
-          return await _context.Users.Include(a => a.Articles).ToListAsync();
+          return await _context.Users.Include(a => a.Articles)
+            .Include(c => c.Comments)
+            .ToListAsync();
         }
 
         public async Task<User?> GetUserByIdAsync(int id)
         {
-            var userId = await _context.Users.Include(a => a.Articles).FirstOrDefaultAsync(u => u.Id == id);
+            var userId = await _context.Users.Include(a => a.Articles)
+                .Include(c => c.Comments)
+                .FirstOrDefaultAsync(u => u.Id == id);
             if (userId == null)
             {
                 return null;
@@ -74,7 +78,15 @@ namespace api.Repository
                 return true;
             }
             return false;
-
+        }
+        public async Task<bool> UserExist(int id)
+        {
+            var userAdmin = await GetUserByIdAsync(id);
+            if(await _context.Users.AnyAsync(u => u.Id == id)) 
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

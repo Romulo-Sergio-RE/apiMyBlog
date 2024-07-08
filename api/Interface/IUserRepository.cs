@@ -11,5 +11,6 @@ namespace api.Interface
         Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser);
         Task<User?> DeleteUserAsync(int id);
         Task<bool> UserIsAdmin(int id);
+        Task<bool> UserExist(int id);
     }
 }
