@@ -1,6 +1,8 @@
 using api.Context;
 using api.Interface;
 using api.Repository;
+using api.utils;
+using api.utils.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -18,6 +20,7 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options => {
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ITokenUtil, TokenUtil>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
