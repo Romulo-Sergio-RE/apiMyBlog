@@ -11,7 +11,7 @@ public class User
 
     public string Genre { get; set; } = string.Empty;
 
-    public bool IsAdmin { get; set; }
+    public string Roles { get; set; } = string.Empty;
 
     public List<Article> Articles { get; set; } = new List<Article>();
 

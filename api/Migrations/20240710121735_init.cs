@@ -28,7 +28,8 @@ namespace api.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Genre = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsAdmin = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    Roles = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {

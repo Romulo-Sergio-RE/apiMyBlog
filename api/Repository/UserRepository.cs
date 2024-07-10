@@ -63,7 +63,7 @@ public class UserRepository : IUserRepository
         userModel.Email = updateUser.Email;
         userModel.Password = updateUser.Password;
         userModel.Genre = updateUser.Genre;
-        userModel.IsAdmin = updateUser.IsAdmin;
+        userModel.Roles = updateUser.Roles;
         await _context.SaveChangesAsync();
         return userModel;
     }
@@ -71,7 +71,7 @@ public class UserRepository : IUserRepository
     {
         var userAdmin = await GetUserByIdAsync(id);
 
-        if (await _context.Users.AnyAsync(u => u.Id == id) && userAdmin.IsAdmin == true)
+        if (await _context.Users.AnyAsync(u => u.Id == id) && userAdmin?.Roles == "admin")
         {
             return true;
         }

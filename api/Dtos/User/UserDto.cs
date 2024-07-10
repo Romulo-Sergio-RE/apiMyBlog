@@ -13,7 +13,7 @@ namespace api.Dtos.User
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Genre { get; set; } = string.Empty;
-        public bool IsAdmin { get; set; }
+        public string Roles { get; set; } = string.Empty;
         public List<ArticleDto> Articles { get; set; } 
         //public List<Comment> Comments { get; set;} 
     }

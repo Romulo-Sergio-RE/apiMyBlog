@@ -1,10 +1,12 @@
 using api.Dtos.Article;
 using api.Interface;
 using api.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controller
 {
+    [Authorize(Roles = "admin")]
     [Route("api/article")]
     [ApiController]
     public class ArticleController : ControllerBase

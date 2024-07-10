@@ -12,7 +12,7 @@ using api.Context;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240707205223_init")]
+    [Migration("20240710121735_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -102,14 +102,15 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Roles")
                         .IsRequired()
                         .HasColumnType("longtext");
 

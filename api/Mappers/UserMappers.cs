@@ -14,7 +14,7 @@ namespace api.Mappers
                 Email = user.Email,
                 Password = user.Password,
                 Genre = user.Genre,
-                IsAdmin = user.IsAdmin,
+                Roles = user.Roles,
                 Articles = user.Articles.Select(a => a.ToArticleDto()).ToList(),
             };
         }
@@ -26,7 +26,7 @@ namespace api.Mappers
                 Email = user.Email,
                 Password = user.Password,
                 Genre = user.Genre,
-                IsAdmin = user.IsAdmin,
+                Roles = user.Roles,
             };
         }
     }

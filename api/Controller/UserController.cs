@@ -32,7 +32,7 @@ namespace api.Controller
             return Ok(userId.ToUserDto());
         }
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto userDto)
+        public async Task<IActionResult> CreateUser([FromQuery]  CreateUserRequestDto userDto)
         {
             var userCreate = userDto.ToUserAllDto();
             await _UserRepository.CreateUserAsync(userCreate);        

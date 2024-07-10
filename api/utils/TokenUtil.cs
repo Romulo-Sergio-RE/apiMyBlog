@@ -1,7 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
+using api.Dtos.Login;
 using api.Interface;
 using api.Models;
 using api.utils.Interfaces;
@@ -20,11 +20,16 @@ public class TokenUtil : ITokenUtil
         _userRepository = userRepository;
     }
 
-    public async Task<string> GenerateToken(User user)
+    public async Task<string> GenerateToken(LoginDto user)
     {
-        var userDB = await _userRepository.GetUserByIdAsync(user.Id);
-        if (userDB?.Email != user.Email || userDB?.Password != user.Password)
-            return String.Empty;
+        var userDB = await _userRepository.GetAllUsersAsync();
+
+        var dataUser = userDB.FirstOrDefault(u => u.Email == user.Email);
+        
+        if (dataUser?.Email != user.Email || dataUser?.Password != user.Password)
+        {
+            return string.Empty;
+        }
 
         var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
         var issuer = _configuration["Jwt:issuer"];
@@ -36,12 +41,15 @@ public class TokenUtil : ITokenUtil
             audience: audience,
             claims: new []
             {
-                new Claim(type: ClaimTypes.Email, value: user.Email),
-                //new Claim(type: ClaimTypes.Role, value: user.IsAdmin),
+                new Claim(type: ClaimTypes.Email, value: dataUser.Email),
+                new Claim(type: ClaimTypes.Role, value: dataUser.Roles),
             },
             expires: DateTime.Now.AddHours(2),
             signingCredentials: signinCredentials
         );
-        return "";
+
+        var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+        return token;
     }
 }

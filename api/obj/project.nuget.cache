@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "G5/4VP6amOo=",
-  "success": false,
+  "dgSpecHash": "WpDJdVENuVA=",
+  "success": true,
   "projectFilePath": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\romulo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\romulo\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.7\\microsoft.aspnetcore.authentication.jwtbearer.8.0.7.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\8.0.6\\microsoft.aspnetcore.jsonpatch.8.0.6.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\8.0.6\\microsoft.aspnetcore.mvc.newtonsoftjson.8.0.6.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.6\\microsoft.aspnetcore.openapi.8.0.6.nupkg.sha512",
@@ -32,10 +33,12 @@
     "C:\\Users\\romulo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
-    "C:\\Users\\romulo\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.6.2\\microsoft.identitymodel.abstractions.7.6.2.nupkg.sha512",
+    "C:\\Users\\romulo\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.0.0-preview1\\microsoft.identitymodel.abstractions.8.0.0-preview1.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\8.0.0-preview1\\microsoft.identitymodel.jsonwebtokens.8.0.0-preview1.nupkg.sha512",
-    "C:\\Users\\romulo\\.nuget\\packages\\microsoft.identitymodel.logging\\7.6.2\\microsoft.identitymodel.logging.7.6.2.nupkg.sha512",
-    "C:\\Users\\romulo\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.6.2\\microsoft.identitymodel.tokens.7.6.2.nupkg.sha512",
+    "C:\\Users\\romulo\\.nuget\\packages\\microsoft.identitymodel.logging\\8.0.0-preview1\\microsoft.identitymodel.logging.8.0.0-preview1.nupkg.sha512",
+    "C:\\Users\\romulo\\.nuget\\packages\\microsoft.identitymodel.protocols\\7.1.2\\microsoft.identitymodel.protocols.7.1.2.nupkg.sha512",
+    "C:\\Users\\romulo\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\7.1.2\\microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512",
+    "C:\\Users\\romulo\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.0.0-preview1\\microsoft.identitymodel.tokens.8.0.0-preview1.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\mysqlconnector\\2.3.5\\mysqlconnector.2.3.5.nupkg.sha512",
@@ -63,15 +66,5 @@
     "C:\\Users\\romulo\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\romulo\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Microsoft.IdentityModel.Tokens from 8.0.0-preview1 to 7.6.2. Reference the package directly from the project to select a different version. \r\n api -> System.IdentityModel.Tokens.Jwt 8.0.0-preview1 -> Microsoft.IdentityModel.Tokens (>= 8.0.0-preview1) \r\n api -> Microsoft.IdentityModel.Tokens (>= 7.6.2)",
-      "libraryId": "Microsoft.IdentityModel.Tokens",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }
