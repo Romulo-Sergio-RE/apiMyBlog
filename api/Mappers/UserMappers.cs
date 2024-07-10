@@ -18,13 +18,13 @@ namespace api.Mappers
                 Articles = user.Articles.Select(a => a.ToArticleDto()).ToList(),
             };
         }
-        public static User ToUserAllDto(this CreateUserRequestDto user)
+        public static User ToUserAllDto(this CreateUserRequestDto user, string passwordCripto)
         {
             return new User
             {
                 Name = user.Name,
                 Email = user.Email,
-                Password = user.Password,
+                Password = passwordCripto,
                 Genre = user.Genre,
                 Roles = user.Roles,
             };

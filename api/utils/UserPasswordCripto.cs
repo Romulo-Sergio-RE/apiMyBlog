@@ -1,55 +1,53 @@
 using System.Security.Cryptography;
 using System.Text;
+using api.utils.Interfaces;
 
-namespace api.utils
+namespace api.utils;
+
+public class UserPasswordCripto : IUserPasswordCripto
 {
-    public class UserPasswordCripto
+    public string ReturnMD5(string password)
     {
-        public string RetornarMD5(string senha)
+        using (MD5 md5Hash = MD5.Create())
         {
-            // todas as instancias seja finalizada ao usar o using
-            using (MD5 md5Hash =  MD5.Create())
-            {
-                return RetornarHash(md5Hash, senha);
-            }
-        }
-        public bool CompararMD5(string senha, string senhaBD)
-        {
-            string novaSenha = RetornarMD5(senha);
-            if (VerificarHash(senhaBD, novaSenha))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        private string RetornarHash(MD5 md5Hash, string input)
-        {
-            // obter um array de bytes com a string de entrada (input)
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-            // construir a string final
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for (int i = 0; i < data.Length; i++) 
-            {
-                stringBuilder.Append(data[i].ToString("X2"));
-            }
-
-            return stringBuilder.ToString();    
-        }
-        public bool VerificarHash(string input, string hash)
-        {
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-            if (comparer.Compare(input, hash) == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ReturnHash(md5Hash, password);
         }
     }
+
+    public bool CompareHash(string userPassword, string DbPassword)
+    {
+        string hashPassword = ReturnMD5(userPassword);
+        if (CheckHash(DbPassword, hashPassword))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+
+    private static string ReturnHash(MD5 md5Hash, string password)
+    {
+        byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < data.Length; i++)
+        {
+            stringBuilder.Append(data[i].ToString("x2"));
+        }
+        return stringBuilder.ToString();
+    }
+
+    private static bool CheckHash(string DbPassword, string hash)
+    {
+        StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+        if (comparer.Compare(DbPassword, hash) == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}

@@ -2,6 +2,7 @@ using api.Context;
 using api.Dtos.User;
 using api.Interface;
 using api.Models;
+using api.utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository;
@@ -54,6 +55,9 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser)
     {
+        var cripto = new UserPasswordCripto();
+        var passwordCripto = cripto.ReturnMD5(updateUser.Password);
+
         var userModel = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         if (userModel == null)
         {
@@ -61,7 +65,7 @@ public class UserRepository : IUserRepository
         }
         userModel.Name = updateUser.Name;
         userModel.Email = updateUser.Email;
-        userModel.Password = updateUser.Password;
+        userModel.Password = passwordCripto;
         userModel.Genre = updateUser.Genre;
         userModel.Roles = updateUser.Roles;
         await _context.SaveChangesAsync();

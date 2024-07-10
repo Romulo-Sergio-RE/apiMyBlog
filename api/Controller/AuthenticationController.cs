@@ -3,7 +3,7 @@ using api.utils.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controller;
-[Route("api/login")]
+[Route("api")]
 [ApiController]
 public class AuthenticationController : ControllerBase
 {
@@ -13,8 +13,18 @@ public class AuthenticationController : ControllerBase
     {
         _tokenUtil = tokenUtil;
     }
-    [HttpPost]
+    [HttpPost("/login")]
     public async Task<IActionResult> Login([FromQuery] LoginDto loginDto)
+    {
+        var token = await _tokenUtil.GenerateToken(loginDto);
+        if(token == "")
+        {
+            return Unauthorized();
+        }
+        return Ok(token);
+    }
+    [HttpPost("/register")]
+    public async Task<IActionResult> Register([FromQuery] LoginDto loginDto)
     {
         var token = await _tokenUtil.GenerateToken(loginDto);
         if(token == "")
