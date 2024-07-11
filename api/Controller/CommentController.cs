@@ -25,6 +25,8 @@ namespace api.Controller
             return Ok(allComment);
         }
         [HttpGet("{id}")]
+        // erro No route matches the supplied values.
+        // [HttpGet("{id:int}")] nao esta aceitando
         public async Task<IActionResult> GetCommentById([FromRoute] int id)
         {
             var comment = await _commentRepository.GetCommentByIdAsync(id);
@@ -34,9 +36,14 @@ namespace api.Controller
             }
             return Ok(comment.ToCommentDto());
         }
-        [HttpPost("{userId}/{articleId}")]
+        [HttpPost("{userId:int}/{articleId:int}")]
         public async Task<IActionResult> CreateComment([FromRoute] int userId, int articleId,  CreateCommentResquestDto createComment)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             if(!await _articleRepository.ArticleExist(articleId))
             {
                 return BadRequest("Article nao encontrado");
@@ -53,6 +60,10 @@ namespace api.Controller
         [HttpPut("{userId}/{articleId}/{commentId}")]
         public async Task<IActionResult> UpdateComment([FromRoute] int userId, int articleId, int commentId, UpdateCommentRequestDto updateComment)
         {
+            if(!ModelState.IsValid)
+            {
+                return  BadRequest();
+            }
             if(!await _articleRepository.ArticleExist(articleId))
             {
                 return BadRequest("Article nao encontrado");
@@ -70,7 +81,7 @@ namespace api.Controller
             return Ok(comment.ToCommentDto());
         }
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> DeleteComment([FromRoute] int id)
         {
             var comment = await _commentRepository.DeleteCommentAsync(id);
