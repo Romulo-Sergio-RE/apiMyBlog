@@ -1,7 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using api.Dtos.Login;
+using api.Helpers;
 using api.Interface;
 using api.utils.Interfaces;
 using Microsoft.IdentityModel.Tokens;
@@ -19,11 +21,11 @@ public class TokenUtil : ITokenUtil
         _userRepository = userRepository;
     }
 
-    public async Task<string> GenerateToken(LoginDto user)
+    public async Task<string> GenerateToken(QueryUser user)
     {
         var cripto = new UserPasswordCripto();
 
-        var userDB = await _userRepository.GetAllUsersAsync();
+        var userDB = await _userRepository.GetAllUsersAsync(user);
 
         var dataUser = userDB.FirstOrDefault(u => u.Email == user.Email);
 
@@ -53,4 +55,8 @@ public class TokenUtil : ITokenUtil
 
         return token;
     }
+
+
+
+
 }

@@ -1,11 +1,12 @@
 using api.Dtos.Article;
+using api.Helpers;
 using api.Models;
 
 namespace api.Interface;
 
 public interface IArticleRepository
 {
-    Task<List<Article>> GetAllArticlesAsync();
+    Task<List<Article>> GetAllArticlesAsync(QueryArticles queryArticles);
 
     Task<Article?> GetByIdArticlesAsync(int id);
 

@@ -1,9 +1,11 @@
 using api.Context;
 using api.Dtos.User;
+using api.Helpers;
 using api.Interface;
 using api.Models;
 using api.utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace api.Repository;
 
@@ -34,11 +36,17 @@ public class UserRepository : IUserRepository
         return userId;
     }
 
-    public async Task<List<User>> GetAllUsersAsync()
+    public async Task<List<User>> GetAllUsersAsync(QueryUser queryUser)
     {
-        return await _context.Users.Include(a => a.Articles)
-          .Include(c => c.Comments)
-          .ToListAsync();
+        var user = _context.Users.Include(a => a.Articles).Include(c => c.Comments).AsQueryable();
+        if(!string.IsNullOrWhiteSpace(queryUser.Email))
+        {
+            user = user.Where(u => u.Email.Contains(queryUser.Email));
+        }
+        return await user.ToListAsync();
+        // return await _context.Users.Include(a => a.Articles)
+        //   .Include(c => c.Comments)
+        //   .ToListAsync();
     }
 
     public async Task<User?> GetUserByIdAsync(int id)

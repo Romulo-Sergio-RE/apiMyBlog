@@ -1,4 +1,5 @@
 using api.Dtos.Article;
+using api.Helpers;
 using api.Interface;
 using api.Mappers;
 using Microsoft.AspNetCore.Authorization;
@@ -19,9 +20,9 @@ namespace api.Controller
             _userRepository = userRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllArticle()
+        public async Task<IActionResult> GetAllArticle([FromQuery] QueryArticles queryArticles)
         {
-            var articles = await _articleRepository.GetAllArticlesAsync();
+            var articles = await _articleRepository.GetAllArticlesAsync(queryArticles);
             return Ok(articles);
         }
         [HttpGet("{id}")]

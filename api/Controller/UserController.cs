@@ -1,4 +1,5 @@
 using api.Dtos.User;
+using api.Helpers;
 using api.Interface;
 using api.Mappers;
 using api.utils;
@@ -15,13 +16,13 @@ public class UserController : ControllerBase
     {
         _UserRepository = userRepository;
     }
-
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers()
+    public async Task<IActionResult> GetAllUsers([FromQuery] QueryUser queryUser)
     {
-        var users = await _UserRepository.GetAllUsersAsync();
+        var users = await _UserRepository.GetAllUsersAsync(queryUser);
         return Ok(users);
     }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdUser([FromRoute] int id)
     {

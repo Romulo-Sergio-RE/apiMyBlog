@@ -1,5 +1,6 @@
 using api.Context;
 using api.Dtos.Article;
+using api.Helpers;
 using api.Interface;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -46,10 +47,11 @@ public class ArticleRepository : IArticleRepository
 
     }
 
-    public async Task<List<Article>> GetAllArticlesAsync()
+    public async Task<List<Article>> GetAllArticlesAsync(QueryArticles queryArticles)
     {
-        var article = await _context.Articles.Include(c => c.Comments).ToListAsync();
-        return article;
+        var article = _context.Articles.Include(c => c.Comments).AsQueryable();
+        var skipNumber = (queryArticles.PageNumber - 1) * queryArticles.PageSize;
+        return await article.Skip(skipNumber).Take(queryArticles.PageSize).ToListAsync();
     }
 
     public async Task<Article?> GetByIdArticlesAsync(int id)
