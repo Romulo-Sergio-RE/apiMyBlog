@@ -6,9 +6,10 @@ namespace api.Interface;
 
 public interface IUserRepository
 {
-    Task<List<User>> GetAllUsersAsync(QueryUser queryUser);
+    Task<List<User>> GetAllUsersAsync();
 
     Task<User?> GetUserByIdAsync(int id);
+    
     Task<User?> CreateUserAsync(User user);
 
     Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser);

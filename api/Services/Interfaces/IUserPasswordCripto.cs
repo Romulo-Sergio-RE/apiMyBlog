@@ -1,6 +1,6 @@
 namespace api.utils.Interfaces;
 
-public interface IUserPasswordCripto
+public interface IUserPasswordCriptoService
 {
     string ReturnMD5(string password);
 

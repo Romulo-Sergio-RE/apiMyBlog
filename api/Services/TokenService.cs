@@ -1,39 +1,24 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
-using api.Dtos.Login;
-using api.Helpers;
 using api.Interface;
-using api.utils.Interfaces;
+using api.Models;
+using api.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
-namespace api.utils;
+namespace api.Services;
 
-public class TokenUtil : ITokenUtil
+public class TokenService : ITokenService
 {
     private readonly IConfiguration _configuration;
-    private readonly IUserRepository _userRepository;
 
-    public TokenUtil(IConfiguration configuration, IUserRepository userRepository)
+    public TokenService(IConfiguration configuration)
     {
         _configuration = configuration;
-        _userRepository = userRepository;
     }
 
-    public async Task<string> GenerateToken(QueryUser user)
+    public  string  GenerateToken(User user)
     {
-        var cripto = new UserPasswordCripto();
-
-        var userDB = await _userRepository.GetAllUsersAsync(user);
-
-        var dataUser = userDB.FirstOrDefault(u => u.Email == user.Email);
-
-        var passwordCripto = cripto.CompareHash(user.Password, dataUser?.Password);
-
-        if (dataUser?.Email != user.Email || !passwordCripto)
-            return String.Empty;
-
         var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
         var issuer = _configuration["Jwt:issuer"];
         var audience = _configuration["Jwt:Audience"];
@@ -44,8 +29,8 @@ public class TokenUtil : ITokenUtil
             audience: audience,
             claims: new[]
             {
-                new Claim(type: ClaimTypes.Email, value: dataUser.Email),
-                new Claim(type: ClaimTypes.Role, value: dataUser.Roles),
+                new Claim(type: ClaimTypes.Email, value: user.Email),
+                new Claim(type: ClaimTypes.Role, value: user.Roles),
             },
             expires: DateTime.Now.AddHours(2),
             signingCredentials: signinCredentials
@@ -55,8 +40,5 @@ public class TokenUtil : ITokenUtil
 
         return token;
     }
-
-
-
 
 }

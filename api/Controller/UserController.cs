@@ -17,9 +17,9 @@ public class UserController : ControllerBase
         _UserRepository = userRepository;
     }
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers([FromQuery] QueryUser queryUser)
+    public async Task<IActionResult> GetAllUsers()
     {
-        var users = await _UserRepository.GetAllUsersAsync(queryUser);
+        var users = await _UserRepository.GetAllUsersAsync();
         return Ok(users);
     }
 
@@ -36,7 +36,7 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromQuery] CreateUserRequestDto userDto)
     {
-        var cripto = new UserPasswordCripto();
+        var cripto = new UserPasswordCriptoService();
         var passwordCripto = cripto.ReturnMD5(userDto.Password);
 
         var userCreate = userDto.ToUserAllDto(passwordCripto);

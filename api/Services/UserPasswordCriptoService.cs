@@ -4,7 +4,7 @@ using api.utils.Interfaces;
 
 namespace api.utils;
 
-public class UserPasswordCripto : IUserPasswordCripto
+public class UserPasswordCriptoService : IUserPasswordCriptoService
 {
     public string ReturnMD5(string password)
     {

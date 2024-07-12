@@ -2,6 +2,9 @@ using System.Text;
 using api.Context;
 using api.Interface;
 using api.Repository;
+using api.Repository.Interface;
+using api.Services;
+using api.Services.Interfaces;
 using api.utils;
 using api.utils.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -80,7 +83,9 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<ITokenUtil, TokenUtil>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore

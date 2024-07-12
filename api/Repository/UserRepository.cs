@@ -36,17 +36,11 @@ public class UserRepository : IUserRepository
         return userId;
     }
 
-    public async Task<List<User>> GetAllUsersAsync(QueryUser queryUser)
+    public async Task<List<User>> GetAllUsersAsync()
     {
-        var user = _context.Users.Include(a => a.Articles).Include(c => c.Comments).AsQueryable();
-        if(!string.IsNullOrWhiteSpace(queryUser.Email))
-        {
-            user = user.Where(u => u.Email.Contains(queryUser.Email));
-        }
-        return await user.ToListAsync();
-        // return await _context.Users.Include(a => a.Articles)
-        //   .Include(c => c.Comments)
-        //   .ToListAsync();
+        var user = await _context.Users.Include(a => a.Articles).Include(c => c.Comments).ToListAsync();
+
+        return user;
     }
 
     public async Task<User?> GetUserByIdAsync(int id)
@@ -63,7 +57,7 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser)
     {
-        var cripto = new UserPasswordCripto();
+        var cripto = new UserPasswordCriptoService();
         var passwordCripto = cripto.ReturnMD5(updateUser.Password);
 
         var userModel = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
