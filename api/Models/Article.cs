@@ -10,6 +10,8 @@ public class Article
 
     public string TimeRead { get; set; } = string.Empty;
 
+    public string ArtilceImageName { get; set; } = string.Empty;
+
     public int? UserId { get; set; }
 
     public List<Comment> Comments { get; set; } = new List<Comment>();

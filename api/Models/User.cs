@@ -9,6 +9,8 @@ public class User
 
     public string Password { get; set; } = string.Empty;
 
+    public string UserImageName { get; set; } = string.Empty;
+
     public string Genre { get; set; } = string.Empty;
 
     public string Roles { get; set; } = string.Empty;

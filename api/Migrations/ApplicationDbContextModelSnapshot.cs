@@ -30,6 +30,10 @@ namespace api.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ArtilceImageName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -108,6 +112,10 @@ namespace api.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserImageName")
                         .IsRequired()
                         .HasColumnType("longtext");
 

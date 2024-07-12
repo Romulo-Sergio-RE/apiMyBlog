@@ -1,11 +1,77 @@
 {
   "Version": 1,
-  "Hash": "pyaMSCEWRZ4nvKCja2XnniyJFEBxfxA7VVvbHvFd6MQ=",
+  "Hash": "OX03Lv2qTDoQ5CHZE5oFqDSI07IZu6gspL33WjTYTfE=",
   "Source": "api",
   "BasePath": "_content/api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "api\\wwwroot",
+      "Source": "api",
+      "ContentRoot": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\",
+      "BasePath": "_content/api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\uploads\\1.jpeg",
+      "SourceId": "api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\",
+      "BasePath": "_content/api",
+      "RelativePath": "uploads/1.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\1.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\uploads\\2.png",
+      "SourceId": "api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\",
+      "BasePath": "_content/api",
+      "RelativePath": "uploads/2.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\2.png"
+    },
+    {
+      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\uploads\\3.jpg",
+      "SourceId": "api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\",
+      "BasePath": "_content/api",
+      "RelativePath": "uploads/3.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\3.jpg"
+    }
+  ]
 }

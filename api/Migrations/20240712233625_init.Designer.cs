@@ -12,7 +12,7 @@ using api.Context;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240710121735_init")]
+    [Migration("20240712233625_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -32,6 +32,10 @@ namespace api.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ArtilceImageName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -111,6 +115,10 @@ namespace api.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserImageName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
