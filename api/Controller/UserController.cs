@@ -1,12 +1,13 @@
 using api.Dtos.User;
-using api.Helpers;
 using api.Interface;
 using api.Mappers;
 using api.utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controller;
 
+[Authorize(Roles  = "admin")]
 [Route("api/user")]
 [ApiController]
 public class UserController : ControllerBase
@@ -33,6 +34,7 @@ public class UserController : ControllerBase
         }
         return Ok(userId.ToUserDto());
     }
+
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromQuery] CreateUserRequestDto userDto)
     {
@@ -44,6 +46,7 @@ public class UserController : ControllerBase
 
         return CreatedAtAction(nameof(GetByIdUser), new { id = userCreate.Id }, userCreate.ToUserDto());
     }
+    
     [HttpPut]
     [Route("{id}")]
     public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromBody] UpdateUserRequestDto userDto)

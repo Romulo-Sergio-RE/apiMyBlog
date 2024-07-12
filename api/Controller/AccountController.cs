@@ -1,9 +1,7 @@
 using api.Dtos.Account;
 using api.Dtos.Login;
-using api.Interface;
 using api.Mappers;
 using api.Repository.Interface;
-using api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controller;
