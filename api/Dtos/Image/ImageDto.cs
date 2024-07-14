@@ -7,6 +7,6 @@ namespace api.Dtos.Image
 {
     public class ImageDto
     {
-        public IFormFile formFileName { get; set; }
+        public IFormFile fileName { get; set; }
     }
 }
