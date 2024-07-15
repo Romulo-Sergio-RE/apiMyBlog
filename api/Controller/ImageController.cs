@@ -1,7 +1,5 @@
 using api.Dtos.Image;
 using api.Repository.Interface;
-using api.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controller;
@@ -11,54 +9,55 @@ namespace api.Controller;
 public class ImageController : ControllerBase
 {
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly UploadImageService _uploadImage;
+    private readonly IUploadImageRepository _uploadImage;
 
-    public ImageController(IWebHostEnvironment webHostEnvironment, UploadImageService uploadImage)
+    public ImageController(IWebHostEnvironment webHostEnvironment, IUploadImageRepository uploadImage)
     {
         _webHostEnvironment = webHostEnvironment;
         _uploadImage = uploadImage;
     }
 
-    [HttpPost]
-    public string UploadImageArticle([FromForm] ImageDto imageUpdate)
+    [HttpPost("{articleId}")]
+    public async Task<object> UploadImageArticle([FromForm] ImageDto imageUpdate)
     {
-       var upload =  _uploadImage.UploadImage(imageUpdate, "articles");
+        var upload = await _uploadImage.UploadImage(imageUpdate, "articles");
 
-       return upload;
+        return upload;
     }
-    [HttpPost("user")]
-    public string UploadImageUser([FromForm] ImageDto imageUpdate)
+    [HttpPost("user/{userId}")]
+    public async Task<string> UploadImageUser([FromForm] ImageDto imageUpdate)
     {
-        var upload =  _uploadImage.UploadImage(imageUpdate, "users");
+        var upload =  await _uploadImage.UploadImage(imageUpdate, "users");
 
-       return upload;
+        return upload;
     }
+
+
     [HttpGet("{fileName}")]
     public async Task<IActionResult> GetImage([FromRoute] string fileName)
     {
         string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
-        var filePath = path + fileName + ".png";
+        var filePath = path + fileName + ".jpg";
 
         if (System.IO.File.Exists(filePath))
 
         {
             byte[] b = System.IO.File.ReadAllBytes(filePath);
-            return File(b, "image/png");
+            return File(b, "image/jpg");
         }
 
         return null;
     }
-     [HttpGet("user/{fileName}")]
+    [HttpGet("user/{fileName}")]
     public async Task<IActionResult> GetImageUser([FromRoute] string fileName)
     {
         string path = _webHostEnvironment.WebRootPath + "\\users\\";
-        var filePath = path + fileName + ".png";
-
+        var filePath = path + fileName;
         if (System.IO.File.Exists(filePath))
 
         {
             byte[] b = System.IO.File.ReadAllBytes(filePath);
-            return File(b, "image/png");
+            return File(b, $"image/{fileName}");
         }
 
         return null;

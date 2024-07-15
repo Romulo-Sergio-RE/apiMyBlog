@@ -41,7 +41,7 @@ public class UserController : ControllerBase
         var cripto = new UserPasswordCriptoService();
         var passwordCripto = cripto.ReturnMD5(userDto.Password);
 
-        var userCreate = userDto.ToUserAllDto(passwordCripto);
+        var userCreate = userDto.ToCreateUserDto(passwordCripto);
         await _UserRepository.CreateUserAsync(userCreate);
 
         return CreatedAtAction(nameof(GetByIdUser), new { id = userCreate.Id }, userCreate.ToUserDto());

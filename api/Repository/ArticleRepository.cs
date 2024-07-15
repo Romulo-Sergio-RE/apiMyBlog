@@ -66,9 +66,10 @@ public class ArticleRepository : IArticleRepository
         return articleById;
     }
 
-    public async Task<Article?> UpdateArticlesAsync(int id, UpdateArticleRequestDto updateArticleDto)
+    public async Task<Article?> UpdateArticlesAsync(int id, UpdateArticleRequestDto updateArticleDto, string ImagePath)
     {
         var article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == id);
+        
         if (article == null)
         {
             return null;
@@ -76,6 +77,7 @@ public class ArticleRepository : IArticleRepository
         article.Title = updateArticleDto.Title;
         article.Content = updateArticleDto.Content;
         article.TimeRead = updateArticleDto.TimeRead;
+        article.ArtilceImageName = ImagePath;
         await _context.SaveChangesAsync();
         return article;
     }

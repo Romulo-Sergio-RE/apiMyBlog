@@ -1,7 +1,9 @@
 using api.Dtos.Article;
+using api.Dtos.Image;
 using api.Helpers;
 using api.Interface;
 using api.Mappers;
+using api.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +15,16 @@ namespace api.Controller
     public class ArticleController : ControllerBase
     {
         private readonly IArticleRepository _articleRepository;
+        
         private readonly IUserRepository _userRepository;
-        public ArticleController(IArticleRepository articleRepository, IUserRepository userRepository)
+
+        private readonly IUploadImageRepository _uploadImage;
+
+        public ArticleController(IArticleRepository articleRepository, IUserRepository userRepository,  IUploadImageRepository uploadImage)
         {
             _articleRepository = articleRepository;
             _userRepository = userRepository;
+            _uploadImage = uploadImage;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllArticle([FromQuery] QueryArticles queryArticles)
@@ -38,7 +45,7 @@ namespace api.Controller
             return Ok(articles.ToArticleDto());
         }
         [HttpPost("{userId:int}")]
-        public async Task<IActionResult> CreateArticle([FromRoute] int userId, CreateArticleRequestDto createArticleDto)
+        public async Task<IActionResult> CreateArticle([FromRoute] int userId, [FromQuery] CreateArticleRequestDto createArticleDto)
         {
             if (!ModelState.IsValid)
             {
@@ -48,20 +55,34 @@ namespace api.Controller
             {
                 return BadRequest("usuario nao existe");
             }
-            var articleModel = createArticleDto.ToArticleAllDto(userId);
+
+            var upload = await _uploadImage.UploadImage(createArticleDto.ArtilceImageName, "articles");
+            Console.WriteLine("ROMULO SERGIO RODRIGUES EVANGELISTA" + upload);
+            if(upload == "Failed.")
+            {
+               return BadRequest("erro ao add artigo");
+            }
+
+            var articleModel = createArticleDto.ToCreateArticleDto(userId , upload);
             await _articleRepository.CreateArticlesAsync(articleModel);
 
             return CreatedAtAction(nameof(GetByIdArticle), new { id = articleModel }, articleModel.ToArticleDto());
         }
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromBody] UpdateArticleRequestDto updateArticle)
+        public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromQuery] UpdateArticleRequestDto updateArticle)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var article = await _articleRepository.UpdateArticlesAsync(id, updateArticle);
+            var upload = await _uploadImage.UploadImage(updateArticle.ArtilceImageName, "articles");
+            Console.WriteLine("ROMULO SERGIO RODRIGUES EVANGELISTA" + upload);
+            if(upload == "Failed.")
+            {
+               return BadRequest("erro ao add artigo");
+            }
+            var article = await _articleRepository.UpdateArticlesAsync(id, updateArticle, upload);
             if (article == null)
             {
                 return NotFound();

@@ -14,7 +14,7 @@ public interface IArticleRepository
 
     Task<Article?> DeleteArticlesAsync(int id);
 
-    Task<Article?> UpdateArticlesAsync(int id, UpdateArticleRequestDto updateArticleDto);
+    Task<Article?> UpdateArticlesAsync(int id, UpdateArticleRequestDto updateArticleDto, string ImagePath);
 
     Task<bool> ArticleExist(int id);
     

@@ -14,18 +14,20 @@ namespace api.Mappers
                 Name = user.Name,
                 Email = user.Email,
                 Password = user.Password,
+                //UserImageName = user.UserImageName,
                 Genre = user.Genre,
                 Roles = user.Roles,
                 Articles = user.Articles.Select(a => a.ToArticleDto()).ToList(),
             };
         }
-        public static User ToUserAllDto(this CreateUserRequestDto user, string passwordCripto)
+        public static User ToCreateUserDto(this CreateUserRequestDto user, string passwordCripto)
         {
             return new User
             {
                 Name = user.Name,
                 Email = user.Email,
                 Password = passwordCripto,
+                //UserImageName = user.UserImageName,
                 Genre = user.Genre,
                 Roles = user.Roles,
             };
