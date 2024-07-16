@@ -79,7 +79,7 @@ public class UserController : ControllerBase
             return NotFound();
         }
         return Ok(user.ToUserDto());
-    }
+    } 
 
     [HttpDelete]
     [Route("{id}")]

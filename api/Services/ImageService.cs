@@ -38,5 +38,21 @@ public class ImageService : IUploadImageService
         }
 
     }
+    public async Task<string> DeleteImage(string fileName, string imageName)
+    {
+
+        string messageErro;
+        string path = _webHostEnvironment.WebRootPath + $"\\{fileName}\\";
+        var filePath = path + imageName;
+        if (System.IO.File.Exists(filePath))
+        {          
+            System.IO.File.Delete(filePath);  
+            messageErro = $"A imagem do {fileName} foi deletado";
+            return messageErro;
+        }
+        messageErro = $"A imagem do {fileName} nao foi encontrada.";
+        return messageErro;
+
+    }
 }
 
