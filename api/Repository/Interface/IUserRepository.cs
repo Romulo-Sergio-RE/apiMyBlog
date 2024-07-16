@@ -12,7 +12,7 @@ public interface IUserRepository
     
     Task<User?> CreateUserAsync(User user);
 
-    Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser);
+    Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser, string ImagePath);
 
     Task<User?> DeleteUserAsync(int id);
 

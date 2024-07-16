@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using api.Dtos.Image;
 
 namespace api.Dtos.User;
 
@@ -24,5 +25,6 @@ public class CreateUserRequestDto
     [AllowedValues("admin", "usuario", ErrorMessage = "os valores do compo so podem ser (admin) ou (usuario).")]
     public string Roles { get; set; } = string.Empty;
 
-    //public string UserImageName { get; set; } = string.Empty;
+    
+    public ImageDto? UserImageName { get; set; }
 }

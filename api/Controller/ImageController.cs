@@ -1,5 +1,4 @@
-using api.Dtos.Image;
-using api.Repository.Interface;
+using api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controller;
@@ -9,57 +8,41 @@ namespace api.Controller;
 public class ImageController : ControllerBase
 {
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly IUploadImageRepository _uploadImage;
+    private readonly IUploadImageService _uploadImage;
 
-    public ImageController(IWebHostEnvironment webHostEnvironment, IUploadImageRepository uploadImage)
+    public ImageController(IWebHostEnvironment webHostEnvironment, IUploadImageService uploadImage)
     {
         _webHostEnvironment = webHostEnvironment;
         _uploadImage = uploadImage;
     }
 
-    [HttpPost("{articleId}")]
-    public async Task<object> UploadImageArticle([FromForm] ImageDto imageUpdate)
+    [HttpDelete("{fileName}/{imageName}")]
+    public async Task<IActionResult> DeleteImage([FromRoute] string fileName, string imageName)
     {
-        var upload = await _uploadImage.UploadImage(imageUpdate, "articles");
-
-        return upload;
-    }
-    [HttpPost("user/{userId}")]
-    public async Task<string> UploadImageUser([FromForm] ImageDto imageUpdate)
-    {
-        var upload =  await _uploadImage.UploadImage(imageUpdate, "users");
-
-        return upload;
-    }
-
-
-    [HttpGet("{fileName}")]
-    public async Task<IActionResult> GetImage([FromRoute] string fileName)
-    {
-        string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
-        var filePath = path + fileName + ".jpg";
-
+        string messageErro;
+        string path = _webHostEnvironment.WebRootPath + $"\\{fileName}\\";
+        var filePath = path + imageName;
         if (System.IO.File.Exists(filePath))
-
+        {          
+            System.IO.File.Delete(filePath);  
+            messageErro = $"A imagem do {fileName} foi deletado";
+            return Ok(messageErro);
+        }
+        messageErro = $"A imagem do {fileName} nao foi encontrada.";
+        return NotFound(messageErro);
+    }
+    
+    [HttpGet("{fileName}/{imageName}")]
+    public async Task<IActionResult> GetImage([FromRoute] string fileName, string imageName)
+    {
+        string path = _webHostEnvironment.WebRootPath + $"\\{fileName}\\";
+        var filePath =  path + imageName;
+        if (System.IO.File.Exists(filePath))
         {
             byte[] b = System.IO.File.ReadAllBytes(filePath);
-            return File(b, "image/jpg");
+            return File(b, $"image/{imageName}");
         }
-
-        return null;
-    }
-    [HttpGet("user/{fileName}")]
-    public async Task<IActionResult> GetImageUser([FromRoute] string fileName)
-    {
-        string path = _webHostEnvironment.WebRootPath + "\\users\\";
-        var filePath = path + fileName;
-        if (System.IO.File.Exists(filePath))
-
-        {
-            byte[] b = System.IO.File.ReadAllBytes(filePath);
-            return File(b, $"image/{fileName}");
-        }
-
-        return null;
+        string messageErro = $"A imagem do {fileName} nao foi encontrada.";
+        return NotFound(messageErro);
     }
 }

@@ -1,4 +1,5 @@
 using api.Dtos.Article;
+using api.Dtos.Comment;
 
 namespace api.Dtos.User
 {
@@ -12,13 +13,13 @@ namespace api.Dtos.User
 
         public string Password { get; set; } = string.Empty;
 
-       // public string UserImageName { get; set; } = string.Empty;
+        public string UserImageName { get; set; } = string.Empty;
 
         public string Genre { get; set; } = string.Empty;
 
         public string Roles { get; set; } = string.Empty;
         
-        public List<ArticleDto> Articles { get; set; }
-        //public List<Comment> Comments { get; set;} 
+        public List<ArticleDto>? Articles { get; set; }
+        public List<CommentDto>? Comments { get; set;} 
     }
 }

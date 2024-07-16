@@ -1,9 +1,8 @@
 using api.Dtos.Article;
-using api.Dtos.Image;
 using api.Helpers;
 using api.Interface;
 using api.Mappers;
-using api.Repository.Interface;
+using api.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +17,9 @@ namespace api.Controller
         
         private readonly IUserRepository _userRepository;
 
-        private readonly IUploadImageRepository _uploadImage;
+        private readonly IUploadImageService _uploadImage;
 
-        public ArticleController(IArticleRepository articleRepository, IUserRepository userRepository,  IUploadImageRepository uploadImage)
+        public ArticleController(IArticleRepository articleRepository, IUserRepository userRepository,  IUploadImageService uploadImage)
         {
             _articleRepository = articleRepository;
             _userRepository = userRepository;
@@ -57,7 +56,6 @@ namespace api.Controller
             }
 
             var upload = await _uploadImage.UploadImage(createArticleDto.ArtilceImageName, "articles");
-            Console.WriteLine("ROMULO SERGIO RODRIGUES EVANGELISTA" + upload);
             if(upload == "Failed.")
             {
                return BadRequest("erro ao add artigo");
@@ -77,7 +75,6 @@ namespace api.Controller
                 return BadRequest();
             }
             var upload = await _uploadImage.UploadImage(updateArticle.ArtilceImageName, "articles");
-            Console.WriteLine("ROMULO SERGIO RODRIGUES EVANGELISTA" + upload);
             if(upload == "Failed.")
             {
                return BadRequest("erro ao add artigo");

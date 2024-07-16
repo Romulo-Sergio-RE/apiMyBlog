@@ -9,7 +9,7 @@ public class User
 
     public string Password { get; set; } = string.Empty;
 
-    public string UserImageName { get; set; } = string.Empty;
+    public string? UserImageName { get; set; }
 
     public string Genre { get; set; } = string.Empty;
 

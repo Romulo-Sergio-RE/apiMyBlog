@@ -1,8 +1,8 @@
 using api.Dtos.Image;
 
-namespace api.Repository.Interface;
+namespace api.Services.Interfaces;
 
-public interface IUploadImageRepository
+public interface IUploadImageService
 {
   Task<string> UploadImage(ImageDto fileName, string filePathName);
 }

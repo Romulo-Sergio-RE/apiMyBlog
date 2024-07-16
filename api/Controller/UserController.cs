@@ -4,6 +4,7 @@ using api.Mappers;
 using api.utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using api.Services.Interfaces;
 
 namespace api.Controller;
 
@@ -13,9 +14,13 @@ namespace api.Controller;
 public class UserController : ControllerBase
 {
     private readonly IUserRepository _UserRepository;
-    public UserController(IUserRepository userRepository)
+
+    private readonly IUploadImageService _uploadImage;
+
+    public UserController(IUserRepository userRepository, IUploadImageService uploadImage)
     {
         _UserRepository = userRepository;
+        _uploadImage = uploadImage;
     }
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
@@ -41,17 +46,34 @@ public class UserController : ControllerBase
         var cripto = new UserPasswordCriptoService();
         var passwordCripto = cripto.ReturnMD5(userDto.Password);
 
-        var userCreate = userDto.ToCreateUserDto(passwordCripto);
-        await _UserRepository.CreateUserAsync(userCreate);
+        if (userDto?.UserImageName?.fileName?.Length > 0)
+        {
+            var upload = await _uploadImage.UploadImage(userDto.UserImageName, "articles");
+            if (upload == "Failed.")
+            {
+                return BadRequest("erro ao add artigo");
+            }
+            var userCreate = userDto.ToCreateUserImageDto(passwordCripto, upload);
+            await _UserRepository.CreateUserAsync(userCreate);
+            return CreatedAtAction(nameof(GetByIdUser), new { id = userCreate.Id }, userCreate.ToUserDto());
 
-        return CreatedAtAction(nameof(GetByIdUser), new { id = userCreate.Id }, userCreate.ToUserDto());
+        }
+        var userCreateImage = userDto.ToCreateUserDto(passwordCripto);
+        await _UserRepository.CreateUserAsync(userCreateImage);
+        return CreatedAtAction(nameof(GetByIdUser), new { id = userCreateImage.Id }, userCreateImage.ToUserDto());
     }
-    
+
     [HttpPut]
     [Route("{id}")]
-    public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromBody] UpdateUserRequestDto userDto)
+    public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromQuery] UpdateUserRequestDto userDto)
     {
-        var user = await _UserRepository.UpdateUserAsync(id, userDto);
+        var upload = await _uploadImage.UploadImage(userDto.UserImageName, "users");
+        if (upload == "Failed.")
+        {
+            return BadRequest("erro ao add artigo");
+        }
+
+        var user = await _UserRepository.UpdateUserAsync(id, userDto, upload);
         if (user == null)
         {
             return NotFound();

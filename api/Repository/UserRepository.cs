@@ -55,7 +55,7 @@ public class UserRepository : IUserRepository
         return userId;
     }
 
-    public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser)
+    public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser, string imageName)
     {
         var cripto = new UserPasswordCriptoService();
         var passwordCripto = cripto.ReturnMD5(updateUser.Password);
@@ -68,6 +68,7 @@ public class UserRepository : IUserRepository
         userModel.Name = updateUser.Name;
         userModel.Email = updateUser.Email;
         userModel.Password = passwordCripto;
+        userModel.UserImageName = imageName;
         userModel.Genre = updateUser.Genre;
         userModel.Roles = updateUser.Roles;
         await _context.SaveChangesAsync();
