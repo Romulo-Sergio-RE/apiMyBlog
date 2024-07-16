@@ -1,6 +1,5 @@
-using api.Dtos.Account;
-using api.Dtos.User;
 using api.Models;
+using api.Dtos.Account;
 
 namespace api.Mappers;
 
@@ -15,7 +14,6 @@ public static class AccountMappers
             Password = passwordCripto,
             Genre = user.Genre,
             Roles = user.Roles,
-            
         };
     }
 }

@@ -1,8 +1,8 @@
-using System.Security.Cryptography;
 using System.Text;
-using api.utils.Interfaces;
+using api.Services.Interfaces;
+using System.Security.Cryptography;
 
-namespace api.utils;
+namespace api.Services;
 
 public class UserPasswordCriptoService : IUserPasswordCriptoService
 {

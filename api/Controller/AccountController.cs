@@ -1,6 +1,6 @@
-using api.Dtos.Account;
-using api.Dtos.Login;
 using api.Mappers;
+using api.Dtos.Login;
+using api.Dtos.Account;
 using api.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +11,7 @@ namespace api.Controller;
 public class AccountController : ControllerBase
 {
     private readonly IAccountRepository _accountRepository;
+
     public AccountController(IAccountRepository accountRepository)
     {
         _accountRepository = accountRepository;
@@ -27,6 +28,7 @@ public class AccountController : ControllerBase
 
         return Ok(login);
     }
+    
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromQuery] RegisterDto registerUser)
     {

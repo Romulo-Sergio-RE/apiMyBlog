@@ -1,15 +1,14 @@
-using api.Dtos.User;
-using api.Interface;
 using api.Mappers;
-using api.utils;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+using api.Dtos.User;
 using api.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using api.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controller;
 
 //[Authorize(Roles  = "admin")]
-[Route("api/user")]
+[Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
 {
@@ -17,11 +16,15 @@ public class UserController : ControllerBase
 
     private readonly IUploadImageService _uploadImage;
 
-    public UserController(IUserRepository userRepository, IUploadImageService uploadImage)
+    private readonly IUserPasswordCriptoService _userPasswordCripto;
+
+    public UserController(IUserRepository userRepository, IUploadImageService uploadImage, IUserPasswordCriptoService userPasswordCripto)
     {
         _UserRepository = userRepository;
         _uploadImage = uploadImage;
+        _userPasswordCripto = userPasswordCripto;
     }
+
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
@@ -43,8 +46,8 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromQuery] CreateUserRequestDto userDto)
     {
-        var cripto = new UserPasswordCriptoService();
-        var passwordCripto = cripto.ReturnMD5(userDto.Password);
+        //var cripto = new UserPasswordCriptoService();
+        var passwordCripto = _userPasswordCripto.ReturnMD5(userDto.Password);
 
         if (userDto?.UserImageName?.fileName?.Length > 0)
         {
@@ -63,26 +66,23 @@ public class UserController : ControllerBase
         return CreatedAtAction(nameof(GetByIdUser), new { id = userCreateImage.Id }, userCreateImage.ToUserDto());
     }
 
-    [HttpPut]
-    [Route("{id}")]
+    [HttpPut("{id}")]
+    //[Route("{id}")]
     public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromQuery] UpdateUserRequestDto userDto)
     {
-
         var user = await _UserRepository.UpdateUserAsync(id, userDto);
         if (user == null)
         {
             return NotFound();
         }
-        
         return Ok(user.ToUserDto());
     }
 
-    [HttpDelete]
-    [Route("{id}")]
+    [HttpDelete("{id}")]
+    //[Route("{id}")]
     public async Task<IActionResult> DeleteUser([FromRoute] int id)
     {
         var deleteUser = await _UserRepository.DeleteUserAsync(id);
-
         if (deleteUser == null)
         {
             return NotFound();

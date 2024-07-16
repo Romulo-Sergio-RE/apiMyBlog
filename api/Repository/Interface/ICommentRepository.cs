@@ -1,7 +1,7 @@
-using api.Dtos.Comment;
 using api.Models;
+using api.Dtos.Comment;
 
-namespace api.Interface;
+namespace api.Repository.Interface;
 
 public interface ICommentRepository
 {

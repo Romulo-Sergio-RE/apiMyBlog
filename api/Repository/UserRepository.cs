@@ -1,9 +1,8 @@
+using api.Models;
 using api.Context;
 using api.Dtos.User;
-using api.Interface;
-using api.Models;
 using api.Services.Interfaces;
-using api.utils;
+using api.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository;
@@ -14,29 +13,13 @@ public class UserRepository : IUserRepository
 
     private readonly IUploadImageService _uploadImage;
 
-    public UserRepository(ApplicationDbContext context, IUploadImageService uploadImage)
+    private readonly IUserPasswordCriptoService _userPasswordCripto;
+
+    public UserRepository(ApplicationDbContext context, IUploadImageService uploadImage,IUserPasswordCriptoService userPasswordCripto)
     {
         _context = context;
         _uploadImage = uploadImage;
-    }
-
-    public async Task<User?> CreateUserAsync(User user)
-    {
-        await _context.Users.AddAsync(user);
-        await _context.SaveChangesAsync();
-        return user;
-    }
-
-    public async Task<User?> DeleteUserAsync(int id)
-    {
-        var userId = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-        if (userId == null)
-        {
-            return null;
-        }
-        _context.Users.Remove(userId);
-        await _context.SaveChangesAsync();
-        return userId;
+        _userPasswordCripto = userPasswordCripto;
     }
 
     public async Task<List<User>> GetAllUsersAsync()
@@ -58,11 +41,18 @@ public class UserRepository : IUserRepository
         return userId;
     }
 
+    public async Task<User?> CreateUserAsync(User user)
+    {
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
+        return user;
+    }
+
     public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser)
     {
-        var cripto = new UserPasswordCriptoService();
+        //var cripto = new UserPasswordCriptoService();
 
-        var passwordCripto = cripto.ReturnMD5(updateUser.Password);
+        var passwordCripto = _userPasswordCripto.ReturnMD5(updateUser.Password);
 
         var imageName = updateUser?.UserImageName?.fileName?.FileName;
         var imageNameUpdate = "";
@@ -116,6 +106,18 @@ public class UserRepository : IUserRepository
         await _context.SaveChangesAsync();
         return userModel;
     }
+    public async Task<User?> DeleteUserAsync(int id)
+    {
+        var userId = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        if (userId == null)
+        {
+            return null;
+        }
+        _context.Users.Remove(userId);
+        await _context.SaveChangesAsync();
+        return userId;
+    }
+
     public async Task<bool> UserIsAdmin(int id)
     {
         var userAdmin = await GetUserByIdAsync(id);
@@ -126,6 +128,7 @@ public class UserRepository : IUserRepository
         }
         return false;
     }
+    
     public async Task<bool> UserExist(int id)
     {
         var userAdmin = await GetUserByIdAsync(id);

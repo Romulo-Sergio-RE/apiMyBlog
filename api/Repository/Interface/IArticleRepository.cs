@@ -1,8 +1,8 @@
-using api.Dtos.Article;
-using api.Helpers;
 using api.Models;
+using api.Helpers;
+using api.Dtos.Article;
 
-namespace api.Interface;
+namespace api.Repository.Interface;
 
 public interface IArticleRepository
 {

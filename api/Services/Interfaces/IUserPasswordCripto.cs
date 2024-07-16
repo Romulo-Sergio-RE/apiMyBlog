@@ -1,4 +1,4 @@
-namespace api.utils.Interfaces;
+namespace api.Services.Interfaces;
 
 public interface IUserPasswordCriptoService
 {

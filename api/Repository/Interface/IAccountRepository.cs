@@ -1,6 +1,5 @@
-using api.Dtos.Account;
-using api.Dtos.Login;
 using api.Models;
+using api.Dtos.Account;
 
 namespace api.Repository.Interface;
 

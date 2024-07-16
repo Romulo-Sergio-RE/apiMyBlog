@@ -1,5 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using api.Dtos.Image;
+using System.ComponentModel.DataAnnotations;
 
 namespace api.Dtos.Article;
 

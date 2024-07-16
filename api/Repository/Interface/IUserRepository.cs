@@ -1,8 +1,7 @@
-using api.Dtos.User;
-using api.Helpers;
 using api.Models;
+using api.Dtos.User;
 
-namespace api.Interface;
+namespace api.Repository.Interface;
 
 public interface IUserRepository
 {

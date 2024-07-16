@@ -38,20 +38,16 @@ public class ImageService : IUploadImageService
     }
     public async Task<string> DeleteImage(string fileName, string imageName)
     {
-        string message;
-
         string path = _webHostEnvironment.WebRootPath + $"\\{fileName}\\";
 
         var filePath = path + imageName;
 
         if (File.Exists(filePath))
-        {          
-            File.Delete(filePath);  
-            message = "sucesso.";
-            return message;
+        {
+            File.Delete(filePath);
+            return "sucesso.";
         }
-        message = "erro ao deletar.";
-        return message;
+        return "erro ao deletar.";
     }
 }
 
