@@ -1,5 +1,4 @@
 using api.Mappers;
-using api.Dtos.Login;
 using api.Dtos.Account;
 using api.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
