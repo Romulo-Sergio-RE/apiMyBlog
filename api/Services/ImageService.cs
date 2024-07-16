@@ -1,5 +1,4 @@
 using api.Dtos.Image;
-using api.Interface;
 using api.Services.Interfaces;
 
 namespace api.Services;
@@ -7,12 +6,11 @@ namespace api.Services;
 public class ImageService : IUploadImageService
 {
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly IUserRepository _userRepo;
 
-    public ImageService(IWebHostEnvironment webHostEnvironment, IUserRepository userRepo)
+
+    public ImageService(IWebHostEnvironment webHostEnvironment)
     {
         _webHostEnvironment = webHostEnvironment;
-        _userRepo = userRepo;
     }
     public async Task<string> UploadImage(ImageDto imageUpdate, string filePathName)
     {
@@ -40,19 +38,20 @@ public class ImageService : IUploadImageService
     }
     public async Task<string> DeleteImage(string fileName, string imageName)
     {
+        string message;
 
-        string messageErro;
         string path = _webHostEnvironment.WebRootPath + $"\\{fileName}\\";
-        var filePath = path + imageName;
-        if (System.IO.File.Exists(filePath))
-        {          
-            System.IO.File.Delete(filePath);  
-            messageErro = $"A imagem do {fileName} foi deletado";
-            return messageErro;
-        }
-        messageErro = $"A imagem do {fileName} nao foi encontrada.";
-        return messageErro;
 
+        var filePath = path + imageName;
+
+        if (File.Exists(filePath))
+        {          
+            File.Delete(filePath);  
+            message = "sucesso.";
+            return message;
+        }
+        message = "erro ao deletar.";
+        return message;
     }
 }
 

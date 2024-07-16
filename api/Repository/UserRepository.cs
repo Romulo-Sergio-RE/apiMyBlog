@@ -1,20 +1,23 @@
 using api.Context;
 using api.Dtos.User;
-using api.Helpers;
 using api.Interface;
 using api.Models;
+using api.Services.Interfaces;
 using api.utils;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace api.Repository;
 
 public class UserRepository : IUserRepository
 {
     private readonly ApplicationDbContext _context;
-    public UserRepository(ApplicationDbContext context)
+
+    private readonly IUploadImageService _uploadImage;
+
+    public UserRepository(ApplicationDbContext context, IUploadImageService uploadImage)
     {
         _context = context;
+        _uploadImage = uploadImage;
     }
 
     public async Task<User?> CreateUserAsync(User user)
@@ -55,20 +58,59 @@ public class UserRepository : IUserRepository
         return userId;
     }
 
-    public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser, string imageName)
+    public async Task<User?> UpdateUserAsync(int id, UpdateUserRequestDto updateUser)
     {
         var cripto = new UserPasswordCriptoService();
+
         var passwordCripto = cripto.ReturnMD5(updateUser.Password);
 
+        var imageName = updateUser?.UserImageName?.fileName?.FileName;
+        var imageNameUpdate = "";
+
         var userModel = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
         if (userModel == null)
         {
             return null;
         }
+
+        if (imageName?.Length > 0)
+        {
+            if (userModel.UserImageName == imageName)
+            {
+                imageNameUpdate = imageName;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(userModel.UserImageName))
+                {
+                    var upload = await _uploadImage.UploadImage(updateUser.UserImageName, "users");
+                    if (upload == "Failed.")
+                    {
+                        return null;
+                    }
+                    imageNameUpdate = upload;
+                }
+                else
+                {
+                    var deleteImageUser = await _uploadImage.DeleteImage("users", userModel.UserImageName);
+                    if (deleteImageUser == "sucesso.")
+                    {
+                        var upload = await _uploadImage.UploadImage(updateUser.UserImageName, "users");
+                        if (upload == "Failed.")
+                        {
+                            return null;
+                        }
+                        imageNameUpdate = upload;
+                    }
+                }
+            }
+        }
+
         userModel.Name = updateUser.Name;
         userModel.Email = updateUser.Email;
         userModel.Password = passwordCripto;
-        userModel.UserImageName = imageName;
+        userModel.UserImageName = imageNameUpdate;
         userModel.Genre = updateUser.Genre;
         userModel.Roles = updateUser.Roles;
         await _context.SaveChangesAsync();

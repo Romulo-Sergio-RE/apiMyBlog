@@ -67,19 +67,15 @@ public class UserController : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromQuery] UpdateUserRequestDto userDto)
     {
-        var upload = await _uploadImage.UploadImage(userDto.UserImageName, "users");
-        if (upload == "Failed.")
-        {
-            return BadRequest("erro ao add artigo");
-        }
 
-        var user = await _UserRepository.UpdateUserAsync(id, userDto, upload);
+        var user = await _UserRepository.UpdateUserAsync(id, userDto);
         if (user == null)
         {
             return NotFound();
         }
+        
         return Ok(user.ToUserDto());
-    } 
+    }
 
     [HttpDelete]
     [Route("{id}")]
