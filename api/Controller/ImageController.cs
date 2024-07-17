@@ -1,8 +1,10 @@
 using api.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controller;
 
+[Authorize(Roles = "admin")]
 [Route("api/[controller]")]
 [ApiController]
 public class ImageController : ControllerBase

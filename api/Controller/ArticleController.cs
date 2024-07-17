@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controller;
 
-//[Authorize(Roles = "admin")]
+[Authorize(Roles = "admin")]
 [Route("api/[controller]")]
 [ApiController]
 public class ArticleController : ControllerBase
@@ -34,8 +34,6 @@ public class ArticleController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    // erro No route matches the supplied values.
-    // [HttpGet("{id:int}")] nao esta aceitando
     public async Task<IActionResult> GetByIdArticle([FromRoute] int id)
     {
         var articles = await _articleRepository.GetByIdArticlesAsync(id);
@@ -70,7 +68,6 @@ public class ArticleController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    //[Route("{id:int}")]
     public async Task<IActionResult> UpdateArticle([FromRoute] int id, [FromQuery] UpdateArticleRequestDto updateArticle)
     {
         if (!ModelState.IsValid)
@@ -91,7 +88,6 @@ public class ArticleController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    //[Route("{id:int}")]
     public async Task<IActionResult> DeleteArticle([FromRoute] int id)
     {
         var deleteArticle = await _articleRepository.DeleteArticlesAsync(id);

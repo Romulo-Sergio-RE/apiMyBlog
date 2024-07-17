@@ -16,7 +16,7 @@ public class AccountController : ControllerBase
         _accountRepository = accountRepository;
     }
 
-    [HttpPost("login")]
+    [HttpPost("user/login")]
     public async Task<IActionResult> Login([FromQuery] LoginDto loginUser)
     {
         var login = await _accountRepository.LoginUser(loginUser);
@@ -36,6 +36,6 @@ public class AccountController : ControllerBase
         {
             return NotFound("usuario esta com o email errado ou senha errada");
         }
-        return CreatedAtAction("GetByIdUser", new { id = register.Id }, register.ToUserDto());
+        return CreatedAtAction(nameof(Register), new { id = register.Id }, register.ToUserDto());
     }
 }

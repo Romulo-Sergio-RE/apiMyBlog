@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using api.Dtos.Image;
 
 namespace api.Dtos.Account;
 
@@ -19,8 +20,6 @@ public class RegisterDto
     [Required]
     [AllowedValues("masculino", "feminino", "outros", ErrorMessage = "os valores do compo so podem ser (masculino), (feminino), (outros).")]
     public string Genre { get; set; } = string.Empty;
-    
-    [Required]
-    [AllowedValues("admin", "usuario", ErrorMessage = "os valores do compo so podem ser (admin) ou (usuario).")]
-    public string Roles { get; set; } = string.Empty;
+
+    public ImageDto? UserImageName { get; set; }
 }

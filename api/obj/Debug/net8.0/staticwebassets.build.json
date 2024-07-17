@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/EhDMEPgtRijiUg4XRPb3mcbSx8YhgobeNu33PvZQZE=",
+  "Hash": "fPcj3VIUzKwEgmEsFgO0YKB+UrRywXBmGAqtB60POXY=",
   "Source": "api",
   "BasePath": "_content/api",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\articles\\uwp3757518.jpeg",
+      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\articles\\2.jpeg",
       "SourceId": "api",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\",
       "BasePath": "_content/api",
-      "RelativePath": "articles/uwp3757518.jpeg",
+      "RelativePath": "articles/2.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -33,7 +33,45 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\articles\\uwp3757518.jpeg"
+      "OriginalItemSpec": "wwwroot\\articles\\2.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\articles\\illustration_Blue Umbrella.jpg",
+      "SourceId": "api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\",
+      "BasePath": "_content/api",
+      "RelativePath": "articles/illustration_Blue Umbrella.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\articles\\illustration_Blue Umbrella.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\articles\\uwp3757515.jpeg",
+      "SourceId": "api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\",
+      "BasePath": "_content/api",
+      "RelativePath": "articles/uwp3757515.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\articles\\uwp3757515.jpeg"
     },
     {
       "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\articles\\wp13408785-cyberpunk-anime-samurai-4k-wallpapers.jpg",
@@ -53,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\articles\\wp13408785-cyberpunk-anime-samurai-4k-wallpapers.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\articles\\wp14000284-black-cowboy-bebop-minimalist-wallpapers.jpg",
+      "SourceId": "api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\",
+      "BasePath": "_content/api",
+      "RelativePath": "articles/wp14000284-black-cowboy-bebop-minimalist-wallpapers.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\articles\\wp14000284-black-cowboy-bebop-minimalist-wallpapers.jpg"
     },
     {
       "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\articles\\wp2123907-attack-on-titan-hd-wallpapers.png",
@@ -93,12 +150,12 @@
       "OriginalItemSpec": "wwwroot\\articles\\wp8547708-scout-regiment-wallpapers.jpg"
     },
     {
-      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\users\\illustration_Time to Drive.png",
+      "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\users\\2.png",
       "SourceId": "api",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\",
       "BasePath": "_content/api",
-      "RelativePath": "users/illustration_Time to Drive.png",
+      "RelativePath": "users/2.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -109,7 +166,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\users\\illustration_Time to Drive.png"
+      "OriginalItemSpec": "wwwroot\\users\\2.png"
     },
     {
       "Identity": "C:\\Users\\romulo\\Documents\\GitHub\\apiMyBlog\\apiMyBlog\\api\\wwwroot\\users\\maxresdefault.jpg",

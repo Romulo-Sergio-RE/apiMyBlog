@@ -29,10 +29,8 @@ public class CommentController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
 
-    // erro No route matches the supplied values.
-    // [HttpGet("{id:int}")] nao esta aceitando
     public async Task<IActionResult> GetCommentById([FromRoute] int id)
     {
         var comment = await _commentRepository.GetCommentByIdAsync(id);
@@ -44,7 +42,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpPost("{userId:int}/{articleId:int}")]
-    //[Authorize(Roles = "admin,usuario")]
+    [Authorize(Roles = "admin,usuario")]
     public async Task<IActionResult> CreateComment([FromRoute] int userId, int articleId, CreateCommentResquestDto createComment)
     {
         if (!ModelState.IsValid)
@@ -66,7 +64,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpPut("{userId}/{articleId}/{commentId}")]
-    //[Authorize(Roles = "admin,usuario")]
+    [Authorize(Roles = "admin,usuario")]
     public async Task<IActionResult> UpdateComment([FromRoute] int userId, int articleId, int commentId, UpdateCommentRequestDto updateComment)
     {
         if (!ModelState.IsValid)
@@ -91,8 +89,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    //[Route("{id:int}")]
-    //[Authorize(Roles = "admin,usuario")]
+    [Authorize(Roles = "admin,usuario")]
     public async Task<IActionResult> DeleteComment([FromRoute] int id)
     {
         var comment = await _commentRepository.DeleteCommentAsync(id);

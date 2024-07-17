@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controller;
 
-//[Authorize(Roles  = "admin")]
+[Authorize(Roles  = "admin")]
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
@@ -46,7 +46,6 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromQuery] CreateUserRequestDto userDto)
     {
-        //var cripto = new UserPasswordCriptoService();
         var passwordCripto = _userPasswordCripto.ReturnMD5(userDto.Password);
 
         if (userDto?.UserImageName?.fileName?.Length > 0)
@@ -67,7 +66,6 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    //[Route("{id}")]
     public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromQuery] UpdateUserRequestDto userDto)
     {
         var user = await _UserRepository.UpdateUserAsync(id, userDto);
@@ -79,7 +77,6 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    //[Route("{id}")]
     public async Task<IActionResult> DeleteUser([FromRoute] int id)
     {
         var deleteUser = await _UserRepository.DeleteUserAsync(id);
