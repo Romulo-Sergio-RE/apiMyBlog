@@ -89,6 +89,16 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 );
 
+builder.Services.AddCors(options => {
+    options.AddPolicy(name: "mypolicy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000/home")
+                .AllowAnyHeader().AllowAnyMethod();
+        }
+    );
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -96,6 +106,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 }
+
+app.UseCors("mypolicy");
 
 app.UseHttpsRedirection();
 
