@@ -89,15 +89,20 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 );
 
-builder.Services.AddCors(options => {
-    options.AddPolicy(name: "mypolicy",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:3000/home")
-                .AllowAnyHeader().AllowAnyMethod();
-        }
-    );
-});
+builder.Services.AddCors();
+
+// builder.Services.AddCors(options => {
+//     options.AddPolicy(name: "mypolicy",
+//         policy =>
+//         {
+//             policy.WithOrigins("http://localhost:3000")
+//                 .AllowAnyHeader()
+//                 .AllowAnyMethod()
+//                 .AllowAnyHeader()
+//                 .AllowCredentials();
+//         }
+//     );
+// });
 
 var app = builder.Build();
 
@@ -107,7 +112,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 }
 
-app.UseCors("mypolicy");
+app.UseCors(b => b.WithOrigins("http://localhost:3000"));
 
 app.UseHttpsRedirection();
 
