@@ -112,7 +112,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 }
 
-app.UseCors(b => b.WithOrigins("http://localhost:3000"));
+app.UseCors(
+    b => b.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+);
 
 app.UseHttpsRedirection();
 
