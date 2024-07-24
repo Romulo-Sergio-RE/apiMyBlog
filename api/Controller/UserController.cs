@@ -44,7 +44,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateUser([FromQuery] CreateUserRequestDto userDto)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto userDto)
     {
         var passwordCripto = _userPasswordCripto.ReturnMD5(userDto.Password);
 

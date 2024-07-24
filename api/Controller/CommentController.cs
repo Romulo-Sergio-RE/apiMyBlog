@@ -21,7 +21,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public async Task<IActionResult> GetAllComment()
     {
         var allComment = await _commentRepository.GetCommentsAsync();
@@ -29,7 +29,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
 
     public async Task<IActionResult> GetCommentById([FromRoute] int id)
     {
@@ -42,7 +42,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpPost("{userId:int}/{articleId:int}")]
-    [Authorize(Roles = "admin,usuario")]
+    //[Authorize(Roles = "admin,usuario")]
     public async Task<IActionResult> CreateComment([FromRoute] int userId, int articleId, CreateCommentResquestDto createComment)
     {
         if (!ModelState.IsValid)
@@ -64,7 +64,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpPut("{userId}/{articleId}/{commentId}")]
-    [Authorize(Roles = "admin,usuario")]
+    //[Authorize(Roles = "admin,usuario")]
     public async Task<IActionResult> UpdateComment([FromRoute] int userId, int articleId, int commentId, UpdateCommentRequestDto updateComment)
     {
         if (!ModelState.IsValid)
@@ -89,7 +89,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    [Authorize(Roles = "admin,usuario")]
+    //[Authorize(Roles = "admin,usuario")]
     public async Task<IActionResult> DeleteComment([FromRoute] int id)
     {
         var comment = await _commentRepository.DeleteCommentAsync(id);
